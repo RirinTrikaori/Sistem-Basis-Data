@@ -1,0 +1,66 @@
+CREATE TABLE anggota (no_anggota char(10) NOT null PRIMARY KEY, nama varchar(50) NOT null, telepon varchar (15) NOT null, alamat varchar (50) NOT null );
+
+CREATE TABLE biaya__sewa (kode_biaya char (4) NOT null PRIMARY KEY, biaya_sewa int (11) NOT null);
+
+CREATE TABLE jenis_buku (kode_jenis char (4) NOT null PRIMARY KEY, jenis_buku char (11) NOT null);
+
+CREATE TABLE kasir (id_kasir char(4) NOT null PRIMARY KEY, nama_kasir varchar (50) NOT null );
+
+CREATE TABLE buku (kode_buku char(4) NOT null PRIMARY KEY, judul_buku varchar (50) NOT null,kode_jenis char (4) NOT null,kode_biaya char (4) NOT null, FOREIGN KEY (kode_jenis) REFERENCES jenis_buku (kode_jenis), FOREIGN KEY (kode_biaya) REFERENCES biaya__sewa (kode_biaya));
+
+CREATE TABLE pinjaman (no_peminjaman char(4) NOT null PRIMARY KEY, tanggal_meminjam date NOT null,tanggal_kembali date NOT null,kode_buku char (4) NOT null, FOREIGN KEY (kode_buku) REFERENCES buku (kode_buku));
+
+CREATE TABLE transaksi (no_transaksi char(4) NOT null PRIMARY KEY, no_peminjaman char (4) NOT null,tanggal_meminjam date NOT null,tota'l int (15) NOT null, FOREIGN KEY (no_peminjaman) REFERENCES pinjaman (no_peminjaman));
+
+CREATE TABLE nota (no_nota char(4) NOT null PRIMARY KEY, tanggal_peminjaman date NOT null,tanggal_kembali date NOT null,jaminan char (5) NOT null,id_kasir char (4) not null, no_anggota char (10) not null, no_transaksi char (4) not null, FOREIGN KEY (id_kasir) REFERENCES kasir (id_kasir), FOREIGN KEY (no_anggota) REFERENCES anggota(no_anggota), FOREIGN KEY (no_transaksi) REFERENCES transaksi(no_transaksi));
+
+
+INSERT INTO anggota (no_anggota, nama, telepon, alamat)
+VALUES
+('1001', 'Elvira Adira', '+6281234512345', 'Pasar Baru'),
+('1002', 'Hafiz Firmayanri', '+6285678956789', 'Andalas'),
+('1003', 'Laellatul Husna', '+6281357913579', 'Bukittinggi'),
+('1004', 'Fauzan Melvi Hendri', '+628113452235', 'Limau Manis'),
+('1005', 'Muhammad Shadeq', '+6287765433890', 'Simpang Haru'),
+('1006', 'Dinda Mestika', '+629764900241', 'Pekan Baru'),
+('1007', 'Muhammad Taqwa Addari', '+6286754388923', 'Ampang');
+
+INSERT INTO biaya__sewa (kode_biaya, biaya_sewa)
+VALUES
+('H1', '5000'),
+('H2', '10000'),
+('H3', '15000'),
+('H4', '20000'),
+('H5', '25000'),
+('H6', '30000');
+
+INSERT INTO jenis_buku (kode_jenis, jenis_buku)
+VALUES
+('B1', 'Non Fiksi'),
+('B2', 'FIksi'),
+('B3', 'Ilmiah'),
+('B4', 'Manga');
+
+INSERT INTO kasir (id_kasir, nama_kasir)
+VALUES
+('K3', 'Joko K'),
+('K4', 'Salsabila A'),
+('K5', 'Sandi G'),
+('K6', 'Sindy M');
+
+
+INSERT INTO buku (kode_buku, judul_buku, kode_jenis, kode_biaya)
+VALUES
+('F02', 'Petualangan Bolang', 'B2', 'H2'),
+('I03', Elektronika DIgital', 'B3', 'H3'),
+('M04', 'One Piece: Next Heneration', 'B4', 'H4'),
+('N01', 'HIROSHIMA & NAGASAKI 1945', 'B1', 'H1');
+
+INSERT INTO pinjaman (no_pinjaman, tanggal_meminjam, tanggal_kembali, kode_buku)
+VALUES
+('P2', '2023-06-23', '2023-06-29', 'F02'),
+('P3', '2023-06-22', '2023-06-28', 'N01');
+
+INSERT INTO transaksi (no_transaksi, no_peminjaman, tanggal_meminjam, total)
+
+INSERT INTO nota (no_nota, tanggal_peminjaman, tanggal_kembali, jaminan, id_kasir, no_anggota, no_tansaksi, 
